@@ -8,129 +8,340 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
 body{
     font-family:'Inter',sans-serif;
-    background:#0b0f14;
+    background:radial-gradient(circle at top,#0f172a,#0b0f14 60%);
     color:white;
     line-height:1.6;
 }
 
+/* 🔴 NOTICE – TALLER, TWO-LINE WITH UNDERLINES, RED PANEL, WHITE TEXT */
+.notice {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: #b91c1c;
+    backdrop-filter: blur(2px);
+    border: 1px solid rgba(255, 180, 180, 0.25);
+    color: white;
+    padding: 14px 24px;          /* taller padding */
+    border-radius: 20px;
+    font-weight: 500;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    display: flex;
+    align-items: flex-start;     /* align top for multi-line */
+    gap: 14px;
+    box-shadow: 0 0 18px #b91c1c, 0 0 40px rgba(185, 28, 28, 0.5);
+    z-index: 999;
+    border-left: 4px solid #ffb3b3;
+    animation: slideNotice 0.55s cubic-bezier(0.2, 0.9, 0.3, 1), pulseGlow 2.5s infinite alternate ease-in-out;
+    line-height: 1.5;
+    pointer-events: none;
+    max-width: 620px;
+    width: auto;
+}
+
+/* Professional "i" circle – white, red text */
+.notice-icon {
+    background: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #b91c1c;
+    font-weight: 800;
+    font-size: 15px;
+    box-shadow: 0 0 8px rgba(255,255,255,0.5);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Message container – allows two lines with underline separator */
+.notice-message {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* first part: antivirus warning */
+.notice-line1 {
+    font-weight: 600;
+    padding-bottom: 6px;
+    border-bottom: 1.5px solid rgba(255, 215, 215, 0.6); /* subtle white-red underline */
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* second part: explanation */
+.notice-line2 {
+    font-weight: 400;
+    opacity: 0.95;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+}
+
+/* small bullet for visual flow */
+.notice-bullet {
+    font-size: 18px;
+    line-height: 1;
+    color: #ffd9d9;
+    margin-right: 4px;
+}
+
+/* subtle glow animation */
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 14px #b91c1c, 0 0 30px rgba(185, 28, 28, 0.5); }
+    100% { box-shadow: 0 0 22px #dc2626, 0 0 55px rgba(220, 38, 38, 0.7); }
+}
+
+@keyframes slideNotice {
+    0% { opacity: 0; transform: translateX(-30px) scale(0.95); }
+    100% { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+/* mobile fallback */
+@media (max-width: 700px) {
+    .notice {
+        max-width: 90%;
+        padding: 12px 18px;
+        font-size: 13px;
+    }
+}
+
 /* GENERAL */
-.section{padding:100px 10%;}
+.section{padding:110px 10%;}
 .center{text-align:center;}
-.divider{border-top:1px solid #1f2937;margin:80px 0;}
+.divider{
+    height:1px;
+    background:linear-gradient(to right,transparent,#1f2937,transparent);
+    margin:90px 0;
+}
 
 /* HERO */
-.hero{text-align:center;padding:120px 20px 80px;}
+.hero{
+    text-align:center;
+    padding:150px 20px 110px;
+}
+
 .hero img{
-    width:90px;height:90px;border-radius:25px;
-    background:#16a34a;padding:18px;margin-bottom:25px;
+    width:120px;
+    height:120px;
+    border-radius:30px;
+    background:#16a34a;
+    padding:25px;
+    margin-bottom:35px;
+    animation:float 4s ease-in-out infinite;
+    box-shadow:
+        0 0 25px rgba(34,197,94,0.8),
+        0 0 60px rgba(34,197,94,0.5),
+        0 0 120px rgba(34,197,94,0.3);
 }
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+}
+
 .version{
-    display:inline-block;background:#1f2937;color:#9ca3af;
-    padding:6px 14px;border-radius:20px;font-size:14px;margin-bottom:20px;
+    display:inline-block;
+    background:rgba(31,41,55,0.6);
+    backdrop-filter:blur(12px);
+    color:#9ca3af;
+    padding:8px 20px;
+    border-radius:30px;
+    font-size:14px;
+    margin-bottom:25px;
 }
-.hero h1{font-size:60px;font-weight:800;margin-bottom:20px;}
-.hero p{font-size:20px;color:#9ca3af;max-width:600px;margin:0 auto 30px;}
+
+.hero h1{
+    font-size:72px;
+    font-weight:800;
+    margin-bottom:20px;
+    letter-spacing:-1px;
+}
+
+.hero p{
+    font-size:20px;
+    color:#9ca3af;
+    max-width:650px;
+    margin:0 auto 40px;
+}
 
 .btn{
-    display:inline-block;background:#16a34a;color:white;
-    padding:14px 32px;border-radius:12px;font-weight:600;
-    text-decoration:none;transition:0.3s;
+    display:inline-block;
+    background:linear-gradient(135deg,#16a34a,#22c55e);
+    color:white;
+    padding:16px 36px;
+    border-radius:14px;
+    font-weight:600;
+    text-decoration:none;
+    transition:all 0.3s ease;
+    box-shadow:0 10px 30px rgba(34,197,94,0.3);
 }
-.btn:hover{background:#22c55e;transform:translateY(-3px);}
+.btn:hover{
+    transform:translateY(-5px);
+    box-shadow:0 15px 40px rgba(34,197,94,0.5);
+}
 
-.stats{margin-top:30px;color:#9ca3af;font-size:14px;}
+.stats{
+    margin-top:35px;
+    font-size:15px;
+    color:#9ca3af;
+}
+.stats span{
+    margin:0 8px;
+    color:#16a34a;
+}
 
 /* GALLERY */
-.gallery{display:flex;gap:30px;flex-wrap:wrap;justify-content:center;}
+.gallery{
+    display:flex;
+    gap:30px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
 .gallery img{
-    width:500px;max-width:95%;border-radius:20px;
+    width:500px;
+    max-width:95%;
+    border-radius:22px;
     transition:0.4s;
 }
 .gallery img:hover{
-    transform:scale(1.03);
-    box-shadow:0 0 40px rgba(34,197,94,0.3);
+    transform:scale(1.05);
+    box-shadow:0 0 60px rgba(34,197,94,0.35);
 }
 
 /* FEATURES */
 .feature-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:30px;
+    gap:35px;
 }
 .feature-card{
-    background:#111827;padding:35px;border-radius:20px;
-    border:1px solid #1f2937;transition:0.3s;
+    background:rgba(17,24,39,0.7);
+    backdrop-filter:blur(14px);
+    padding:40px;
+    border-radius:24px;
+    border:1px solid rgba(255,255,255,0.05);
+    transition:all 0.3s ease;
 }
 .feature-card:hover{
-    transform:translateY(-6px);
+    transform:translateY(-8px);
     border-color:#16a34a;
+    box-shadow:0 20px 50px rgba(0,0,0,0.5);
 }
-.feature-icon{font-size:24px;margin-bottom:15px;color:#16a34a;}
-.feature-card h3{margin-bottom:10px;}
-.feature-card p{color:#9ca3af;font-size:15px;}
+.feature-icon{
+    font-size:28px;
+    margin-bottom:15px;
+    color:#16a34a;
+}
+.feature-card p{
+    color:#9ca3af;
+    font-size:15px;
+}
 
-/* HOW IT WORKS */
+/* HOW */
 .how{
     display:flex;
-    gap:60px;
+    gap:70px;
     align-items:center;
     flex-wrap:wrap;
 }
 .how-text{flex:1;}
-.how-text h2{font-size:32px;margin-bottom:20px;}
+.how-text h2{font-size:34px;margin-bottom:20px;}
 .how-text p{color:#9ca3af;margin-bottom:30px;}
-.check{margin-bottom:15px;color:#9ca3af;}
-.check span{color:#16a34a;margin-right:10px;}
+
+.check{
+    margin-bottom:15px;
+    color:#9ca3af;
+}
+.check span{
+    color:#16a34a;
+    margin-right:10px;
+}
+
 .how-icon{
     flex:1;
     display:flex;
     justify-content:center;
 }
 .how-icon img{
-    width:150px;
-    padding:30px;
-    border-radius:25px;
+    width:170px;
+    padding:35px;
+    border-radius:30px;
     background:#16a34a;
+    box-shadow:0 0 60px rgba(34,197,94,0.6);
 }
 
-/* INSTALLATION */
+/* INSTALL */
 .install-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:30px;
+    gap:35px;
     margin-top:50px;
 }
 .install-card{
     background:#111827;
-    padding:40px;
-    border-radius:20px;
+    padding:45px;
+    border-radius:24px;
     text-align:center;
     border:1px solid #1f2937;
+    transition:0.3s;
+}
+.install-card:hover{
+    transform:translateY(-6px);
+    border-color:#16a34a;
 }
 .step{
-    width:50px;height:50px;border-radius:50%;
+    width:55px;height:55px;border-radius:50%;
     background:#16a34a;
     display:flex;align-items:center;justify-content:center;
     margin:0 auto 20px;font-weight:bold;
 }
-.install-card h3{margin-bottom:10px;}
-.install-card p{color:#9ca3af;font-size:14px;}
 
 /* CTA */
 .cta{
     background:linear-gradient(135deg,#052e16,#064e3b);
-    padding:80px 20px;
-    border-radius:20px;
+    padding:90px 20px;
+    border-radius:30px;
     text-align:center;
+    box-shadow:0 0 100px rgba(34,197,94,0.2);
 }
-.cta h2{font-size:32px;margin-bottom:20px;}
-.cta p{color:#9ca3af;margin-bottom:30px;}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:60px 20px;
+    color:#6b7280;
+    font-size:14px;
+}
+footer a{
+    color:#16a34a;
+    text-decoration:none;
+    margin:0 10px;
+    transition:0.3s;
+}
+footer a:hover{
+    color:#22c55e;
+}
 </style>
 </head>
 
 <body>
+
+<!-- 🔴 NOTICE – TALLER, SPLIT INTO TWO LINES WITH UNDERLINE, PROFESSIONAL RED PANEL -->
+<div class="notice">
+    <span class="notice-icon">i</span>
+    <div class="notice-message">
+        <span class="notice-line1">You might have to turn off your Windows antivirus in order to proceed with the installation.</span>
+        <span class="notice-line2"><span class="notice-bullet">•</span> Because we use an effortless manual-installation system — just launch your game and start mining!</span>
+    </div>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -139,7 +350,12 @@ body{
     <h1>GREAP</h1>
     <p>The ultimate advanced mining enhancement for Hytale. Mine entire ore veins instantly with a single break.</p>
     <a href="greap-v1.2.0.zip" class="btn" download>⬇ Download Now</a>
-    <div class="stats">20,247 downloads • 5.2K active users • Compatible with Hytale 1.0+</div>
+
+    <div class="stats">
+        <span>⬇</span>20,247 downloads • 
+        <span>👥</span>5.2K active users • 
+        <span>✔</span>Compatible with Hytale 1.0+
+    </div>
 </section>
 
 <div class="divider"></div>
@@ -157,10 +373,10 @@ body{
 
 <div class="divider"></div>
 
-<!-- POWERFUL FEATURES -->
+<!-- FEATURES -->
 <section class="section center">
     <h2>Powerful Features</h2>
-    <p style="color:#9ca3af;margin-bottom:50px;">Everything you need for efficient mining</p>
+    <p style="color:#9ca3af;margin-bottom:50px;">Mining in Hytale is an absolute Hassle, so why not enhance your experience by downloading GREAP?</p>
     <div class="feature-grid">
         <div class="feature-card">
             <div class="feature-icon">⚡</div>
@@ -203,21 +419,21 @@ body{
 
 <div class="divider"></div>
 
-<!-- EASY INSTALLATION -->
+<!-- INSTALLATION -->
 <section class="section center">
-    <h2>Easy Installation</h2>
+    <h2>Easy Manual-Installation</h2>
     <p style="color:#9ca3af;">Get started in minutes</p>
 
     <div class="install-grid">
         <div class="install-card">
             <div class="step">1</div>
             <h3>Download</h3>
-            <p>Click the download button to get greap.jar</p>
+            <p>Unpack the .zip find and find the greap executable download wizard</p>
         </div>
         <div class="install-card">
             <div class="step">2</div>
             <h3>Install</h3>
-            <p>Place the file in your .hytale/mods directory</p>
+            <p>Continue with the Automatic Installation Process</p>
         </div>
         <div class="install-card">
             <div class="step">3</div>
@@ -239,6 +455,14 @@ body{
     </div>
 </section>
 
+<footer>
+    <p>© 2026 GREAP. Released under MIT License.</p>
+    <p style="margin-top:15px;">
+        <a href="#">Documentation</a> |
+        <a href="#">Support</a> |
+        <a href="#">GitHub</a>
+    </p>
+</footer>
 
 </body>
 </html>
